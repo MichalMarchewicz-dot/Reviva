@@ -1,279 +1,714 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quinque Dom Kapitałowy</title>
+<meta name="description" content="Quinque — doradztwo w alokacji kapitału: złoto, srebro, bitcoin, nieruchomości i REIT-y. Pięć filarów trwałego majątku.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-  /* --- FINALNA KONFIGURACJA V14 (WHITE PLACEHOLDER FIX) --- */
-  @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Plus+Jakarta+Sans:wght@400;700&family=Unbounded:wght@400;700;800&family=JetBrains+Mono:wght@400;700&display=swap');
+/* Układ: ciemnozielony „certyfikat” z giloszem w nagłówku, dalej spokojna kolumna redakcyjna z filarami w wierszach, tabela porównawcza, interaktywny model portfela. */
+:root{
+  --bg:#f4f6f2;
+  --surface:#ffffff;
+  --ink:#13211d;
+  --muted:#56655f;
+  --line:#d6dcd5;
+  --brass:#86652a;
+  --brass-soft:#c4a35f;
+  --hero-bg:#11302a;
+  --hero-ink:#eef1ea;
+  --hero-muted:#a9bbb2;
+  --c-au:#b48c3c;
+  --c-ag:#97a1a6;
+  --c-btc:#c06f36;
+  --c-re:#3d6a56;
+  --c-reit:#4a5f88;
+  --focus:#86652a;
+  --f-display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --f-body:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --s-xs:.8125rem; --s-sm:.9375rem; --s-md:1.0625rem; --s-lg:1.375rem; --s-xl:2rem; --s-2xl:clamp(2.4rem,5.4vw,4.4rem);
+  --wrap:1180px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1210; --surface:#111b18; --ink:#e7ebe4; --muted:#97a69f; --line:#23312c;
+    --brass:#d3b06b; --brass-soft:#a8884a; --hero-bg:#0a1b17; --hero-ink:#eef1ea; --hero-muted:#9fb2a9;
+    --c-au:#d0aa5c; --c-ag:#b8c1c6; --c-btc:#de8a4f; --c-re:#64a083; --c-reit:#8099c8; --focus:#d3b06b;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1210; --surface:#111b18; --ink:#e7ebe4; --muted:#97a69f; --line:#23312c;
+  --brass:#d3b06b; --brass-soft:#a8884a; --hero-bg:#0a1b17; --hero-ink:#eef1ea; --hero-muted:#9fb2a9;
+  --c-au:#d0aa5c; --c-ag:#b8c1c6; --c-btc:#de8a4f; --c-re:#64a083; --c-reit:#8099c8; --focus:#d3b06b;
+  color-scheme:dark;
+}
 
-  :root {
-    --ksfy-green: #00ff7f;
-    --ksfy-glass: rgba(15, 15, 15, 0.8);
-    --ksfy-border: rgba(0, 255, 127, 0.4);
-  }
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:var(--s-md);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+h1,h2,h3{font-family:var(--f-display);font-weight:500;line-height:1.08;text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:clamp(16px,4vw,40px)}
+.eyebrow{font-family:var(--f-mono);font-size:var(--s-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--brass)}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
 
-  /* RESET ZAZNACZANIA */
-  .ksfy-footer-v14 *::selection {
-    background-color: var(--ksfy-green) !important;
-    color: #000000 !important;
-    -webkit-text-fill-color: #000000 !important;
-  }
+/* ── Nagłówek ── */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--hero-bg);color:var(--hero-ink);border-bottom:1px solid rgba(196,163,95,.22)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand svg{width:30px;height:30px;flex:none}
+.brand b{font-family:var(--f-display);font-weight:500;font-size:1.3rem;letter-spacing:.32em}
+.brand small{display:block;font-family:var(--f-mono);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--hero-muted);margin-top:2px}
+.nav{display:flex;align-items:center;gap:28px;font-size:var(--s-sm)}
+.nav a{text-decoration:none;color:var(--hero-muted);transition:color .2s}
+.nav a:hover{color:var(--hero-ink)}
+.btn{display:inline-flex;align-items:center;gap:10px;font:500 var(--s-sm)/1 var(--f-body);letter-spacing:.02em;padding:13px 22px;border:1px solid var(--brass-soft);color:var(--hero-ink);background:transparent;text-decoration:none;cursor:pointer;transition:background .25s,color .25s}
+.btn:hover{background:#c4a35f;color:#11302a}
+.btn.solid{background:#c4a35f;color:#11302a;border-color:#c4a35f}
+.btn.solid:hover{background:transparent;color:var(--hero-ink)}
+.nav .btn{padding:10px 18px}
+@media (max-width:820px){.nav a:not(.btn){display:none}}
 
-  .ksfy-footer-v14 {
-    position: relative;
-    background: #000000;
-    padding: 80px 0 40px;
-    overflow: hidden;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    border: none !important;
-  }
+/* ── Hero ── */
+.hero{background:var(--hero-bg);color:var(--hero-ink);position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,6vw,80px);align-items:center;padding-block:clamp(56px,8vw,104px)}
+.hero h1{font-size:var(--s-2xl);font-weight:400;letter-spacing:-.01em}
+.hero h1 em{font-style:italic;color:#d6b874}
+.hero .lead{margin-top:24px;max-width:34em;color:var(--hero-muted);font-size:1.125rem}
+.hero .eyebrow{color:#d6b874;margin-bottom:22px;display:block}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
+.cert{position:relative;border:1px solid rgba(196,163,95,.45);padding:clamp(22px,3vw,34px);background:rgba(255,255,255,.02);min-width:0}
+.cert::before{content:"";position:absolute;inset:6px;border:1px solid rgba(196,163,95,.2);pointer-events:none}
+.cert canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.9;pointer-events:none}
+.cert > *:not(canvas){position:relative}
+.cert-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:1px solid rgba(196,163,95,.3);padding-bottom:14px}
+.cert-head h2{font-size:1.5rem;font-style:italic;font-weight:400}
+.cert-head span{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;color:var(--hero-muted)}
+.cert ul{list-style:none;margin:8px 0 0;padding:0}
+.cert li{display:grid;grid-template-columns:3.2rem 1fr auto;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px dotted rgba(196,163,95,.28)}
+.cert li .sym{font-family:var(--f-display);font-size:1.35rem;color:#d6b874}
+.cert li .w{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:.95rem}
+.cert-foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:20px;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--hero-muted)}
+.cert-foot .sig{font-family:var(--f-display);font-style:italic;text-transform:none;letter-spacing:0;font-size:1.05rem;color:var(--hero-ink);border-top:1px solid rgba(196,163,95,.4);padding-top:6px}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr}}
 
-  /* SEKCJA LOGO */
-  .footer-brand-top {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 60px;
-  }
+/* ── Pasek faktów ── */
+.facts{border-bottom:1px solid var(--line);background:var(--surface)}
+.facts .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.fact{padding:28px 24px 26px 0;border-right:1px solid var(--line);min-width:0}
+.fact + .fact{padding-left:24px}
+.fact:last-child{border-right:0}
+.fact b{display:block;font-family:var(--f-display);font-weight:400;font-size:2.1rem;line-height:1;color:var(--ink)}
+.fact span{display:block;margin-top:10px;font-size:var(--s-sm);color:var(--muted)}
+@media (max-width:760px){
+  .facts .wrap{grid-template-columns:1fr 1fr}
+  .fact{padding:22px 16px 20px 0}
+  .fact + .fact{padding-left:0}
+  .fact:nth-child(2n){padding-left:16px;border-right:0}
+  .fact:nth-child(-n+2){border-bottom:1px solid var(--line)}
+}
 
-  .brand-wrapper-v14 {
-    text-align: center;
-    opacity: 0;
-    transform: translateY(20px);
-    filter: blur(10px);
-    transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
-  }
+/* ── Sekcje ── */
+section.block{padding-block:clamp(64px,9vw,120px)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:end;margin-bottom:clamp(36px,5vw,64px)}
+.sec-head h2{font-size:var(--s-xl);font-size:clamp(2rem,3.6vw,3rem);margin-top:14px}
+.sec-head p{color:var(--muted);max-width:36em}
+@media (max-width:820px){.sec-head{grid-template-columns:1fr}}
 
-  .is-visible .brand-wrapper-v14 {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
+/* Filary */
+.pillar{display:grid;grid-template-columns:9rem minmax(0,1.15fr) minmax(0,1fr);gap:clamp(20px,4vw,56px);padding-block:40px;border-top:1px solid var(--line)}
+.pillar:last-child{border-bottom:1px solid var(--line)}
+.pillar .sym{font-family:var(--f-display);font-size:clamp(3.4rem,6vw,5rem);line-height:.9;color:var(--accent-c)}
+.pillar .sym small{display:block;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:14px;line-height:1.4}
+.pillar h3{font-size:clamp(1.6rem,2.4vw,2.1rem)}
+.pillar .spec{font-family:var(--f-mono);font-size:var(--s-xs);color:var(--muted);margin-top:10px;letter-spacing:.02em}
+.pillar .desc{margin-top:16px;max-width:38em}
+.pillar dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:10px 20px;font-size:var(--s-sm);align-content:start}
+.pillar dt{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.pillar dd{margin:0}
+@media (max-width:900px){
+  .pillar{grid-template-columns:1fr}
+  .pillar .sym{display:flex;align-items:baseline;gap:18px}
+  .pillar .sym small{margin-top:0}
+}
 
-  .logo-footer-main {
-    font-family: 'Syncopate', sans-serif !important;
-    font-weight: 700;
-    font-size: clamp(28px, 6vw, 55px);
-    color: #ffffff;
-    letter-spacing: 0.25em;
-    margin: 0;
-    text-transform: uppercase;
-  }
+/* Tabela */
+.table-wrap{overflow-x:auto;border:1px solid var(--line);background:var(--surface)}
+table{width:100%;border-collapse:collapse;min-width:820px;font-size:var(--s-sm)}
+th,td{text-align:left;padding:16px 18px;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{font-family:var(--f-mono);font-weight:500;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
+tbody th{font-family:var(--f-display);font-weight:500;font-size:1.15rem;white-space:nowrap}
+tbody th i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--accent-c);margin-right:10px;vertical-align:middle}
+.dots{display:inline-flex;gap:4px;vertical-align:middle}
+.dots span{width:8px;height:8px;border-radius:50%;border:1px solid var(--brass);background:transparent}
+.dots span.on{background:var(--brass)}
+.note{margin-top:14px;font-size:var(--s-xs);color:var(--muted)}
 
-  .logo-footer-sub {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 400;
-    font-size: 11px;
-    color: var(--ksfy-green);
-    letter-spacing: 1em;
-    margin-top: 12px;
-    text-transform: uppercase;
-    display: block;
-    text-indent: 1em;
-  }
+/* Portfel */
+.portfolio{background:var(--surface);border-block:1px solid var(--line)}
+.pf-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(28px,5vw,72px);align-items:start}
+.tabs{display:flex;flex-wrap:wrap;border:1px solid var(--line)}
+.tabs button{flex:1 1 0;min-width:0;font:500 var(--s-sm)/1.2 var(--f-body);padding:14px 12px;background:transparent;color:var(--muted);border:0;border-right:1px solid var(--line);cursor:pointer;transition:background .2s,color .2s}
+.tabs button:last-child{border-right:0}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+.pf-desc{margin-top:24px;color:var(--muted);min-height:6.6em}
+.amount{margin-top:28px}
+.amount label{display:block;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.amount-field{display:flex;align-items:baseline;border-bottom:1px solid var(--ink);gap:10px}
+.amount input{flex:1;min-width:0;width:100%;border:0;background:transparent;color:var(--ink);font:400 2rem/1.3 var(--f-display);padding:4px 0;font-variant-numeric:tabular-nums}
+.amount input:focus{outline:none}
+.amount-field:focus-within{border-bottom-color:var(--brass)}
+.amount-field span{font-family:var(--f-mono);color:var(--muted)}
+.bar{display:flex;height:56px;border:1px solid var(--line);overflow:hidden}
+.bar div{background:var(--accent-c);transition:flex-grow .6s cubic-bezier(.4,0,.2,1);min-width:0;position:relative}
+.bar div + div{border-left:2px solid var(--surface)}
+.bar div span{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-family:var(--f-mono);font-size:.75rem;color:#fff;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+@media (prefers-reduced-motion: reduce){.bar div{transition:none}}
+.split{list-style:none;margin:20px 0 0;padding:0}
+.split li{display:grid;grid-template-columns:12px minmax(0,1fr) 4rem auto;gap:14px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
+.split li i{width:12px;height:12px;background:var(--accent-c);align-self:center}
+.split li .pct{font-family:var(--f-mono);color:var(--muted);text-align:right}
+.split li .val{font-family:var(--f-mono);font-variant-numeric:tabular-nums;text-align:right;min-width:9.5em}
+.split li small{display:block;color:var(--muted);font-size:var(--s-xs)}
+@media (max-width:900px){.pf-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){.tabs button{font-size:.8rem;padding:13px 4px;overflow-wrap:anywhere}}
+@media (max-width:480px){.split li{grid-template-columns:12px minmax(0,1fr) auto}.split li .pct{display:none}.split li .val{min-width:0}}
 
-  .brand-wrapper-v14::after {
-    content: '';
-    display: block;
-    width: 0;
-    height: 2px;
-    background: var(--ksfy-green);
-    margin: 20px auto 0;
-    box-shadow: 0 0 15px var(--ksfy-green);
-    transition: width 1s ease-out 0.6s;
-  }
+/* Podatki */
+.tax{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:0;border-top:1px solid var(--line)}
+.tax article{padding:28px 28px 30px 0;border-bottom:1px solid var(--line);min-width:0}
+.tax h3{font-size:1.35rem;display:flex;align-items:baseline;gap:12px}
+.tax h3 span{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.1em;color:var(--brass)}
+.tax .rate{font-family:var(--f-display);font-size:2.4rem;line-height:1;margin-top:16px;color:var(--brass)}
+.tax p{margin-top:12px;font-size:var(--s-sm);color:var(--muted);max-width:32em}
 
-  .is-visible .brand-wrapper-v14::after {
-    width: 50px;
-  }
+/* Proces */
+.process{background:var(--hero-bg);color:var(--hero-ink)}
+.process .eyebrow{color:#d6b874}
+.process .sec-head p{color:var(--hero-muted)}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));counter-reset:s;border-top:1px solid rgba(196,163,95,.35)}
+.steps li{counter-increment:s;padding:26px 22px 8px 0;min-width:0}
+.steps li + li{padding-left:22px;border-left:1px solid rgba(196,163,95,.2)}
+.steps li::before{content:counter(s,upper-roman);display:block;font-family:var(--f-display);font-style:italic;font-size:2.2rem;color:#d6b874;line-height:1;margin-bottom:18px}
+.steps h3{font-family:var(--f-body);font-weight:600;font-size:var(--s-md);letter-spacing:.01em}
+.steps p{margin-top:8px;font-size:var(--s-sm);color:var(--hero-muted)}
+.steps .t{display:block;margin-top:14px;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:#d6b874}
+@media (max-width:980px){
+  .steps{grid-template-columns:1fr}
+  .steps li,.steps li + li{padding:22px 0;border-left:0;border-bottom:1px solid rgba(196,163,95,.2);display:grid;grid-template-columns:3.5rem minmax(0,1fr);column-gap:12px}
+  .steps li::before{grid-row:span 3;margin:0}
+}
 
-  /* UKŁAD STOPKI */
-  .ksfy-footer-container {
-    position: relative; z-index: 2; 
-    width: 90%; max-width: 1100px;
-    margin: 0 auto;
-    display: flex; flex-direction: column; gap: 50px;
-  }
+/* Zasady */
+.principles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,4vw,56px)}
+.principles h3{font-size:1.5rem}
+.principles p{margin-top:12px;color:var(--muted);font-size:var(--s-sm)}
+.principles .rule{display:block;width:40px;height:1px;background:var(--brass);margin-bottom:22px}
+@media (max-width:820px){.principles{grid-template-columns:1fr}}
 
-  .ksfy-split-layout {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-  }
+/* Kontakt */
+.contact{border-top:1px solid var(--line)}
+.contact-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,6vw,88px)}
+.contact h2{font-size:clamp(2rem,3.6vw,3rem);margin-top:14px}
+.contact .info{margin-top:28px;display:grid;gap:18px;font-size:var(--s-sm)}
+.contact .info div{display:grid;grid-template-columns:8.5rem 1fr;gap:12px;border-bottom:1px solid var(--line);padding-bottom:14px}
+.contact .info dt{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:2px}
+.contact .info dd{margin:0}
+form{display:grid;grid-template-columns:1fr 1fr;gap:22px 24px;background:var(--surface);border:1px solid var(--line);padding:clamp(22px,3.5vw,40px)}
+.field{display:grid;gap:8px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select,.field textarea{font:400 var(--s-md)/1.4 var(--f-body);color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--line);padding:8px 0;border-radius:0;width:100%}
+.field select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 10px) 55%,calc(100% - 5px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+.field select option{background:var(--surface);color:var(--ink)}
+.field textarea{resize:vertical;min-height:96px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-bottom-color:var(--brass)}
+.consent{grid-column:1/-1;display:flex;gap:12px;align-items:flex-start;font-size:var(--s-xs);color:var(--muted)}
+.consent input{margin-top:3px;accent-color:var(--brass)}
+.form-foot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.form-foot .btn{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.form-foot .btn:hover{background:transparent;color:var(--ink)}
+.status{font-size:var(--s-sm);color:var(--brass);flex:1 1 16rem}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
+@media (max-width:560px){form{grid-template-columns:1fr}.contact .info div{grid-template-columns:1fr;gap:4px}}
 
-  /* DOKUMENTACJA */
-  .ksfy-links-stack {
-    display: flex; flex-direction: column; align-items: center; gap: 12px;
-  }
-
-  .ksfy-mini-capsule {
-    background: var(--ksfy-glass);
-    border: 1px solid var(--ksfy-border);
-    border-radius: 100px; padding: 10px 25px;
-    display: flex; justify-content: center; text-decoration: none;
-    transition: 0.3s all ease; backdrop-filter: blur(10px);
-    min-width: 220px;
-  }
-
-  .ksfy-mini-capsule:hover {
-    border-color: var(--ksfy-green); transform: translateY(-3px);
-    box-shadow: 0 0 15px rgba(0, 255, 127, 0.2);
-  }
-
-  .ksfy-link-text {
-    font-family: 'Unbounded', sans-serif;
-    font-size: 10px; font-weight: 700; color: #fff;
-    text-transform: uppercase; letter-spacing: 1px;
-  }
-
-  /* NEWSLETTER & WHITE PLACEHOLDER FIX */
-  .ksfy-news-section {
-    display: flex; flex-direction: column; align-items: center; gap: 15px;
-  }
-
-  .ksfy-label-v14 {
-    font-family: 'Unbounded', sans-serif;
-    font-size: 9px; color: #fff; text-transform: uppercase; 
-    letter-spacing: 2px; opacity: 0.7; text-align: center;
-  }
-
-  .ksfy-capsule-input {
-    background: var(--ksfy-glass); border: 1px solid var(--ksfy-border);
-    border-radius: 100px; padding: 8px 10px 8px 25px;
-    display: flex; align-items: center; gap: 10px;
-    backdrop-filter: blur(10px);
-  }
-
-  .ksfy-input-v14 {
-    background: transparent !important; border: none !important; 
-    color: #ffffff !important; font-size: 13px; outline: none !important; width: 180px;
-  }
-
-  /* WYMUSZENIE BIAŁEGO KOLORU DLA NAPISU "ADRES E-MAIL..." */
-  .ksfy-input-v14::placeholder {
-    color: #ffffff !important;
-    opacity: 1 !important; /* Shopify/Chrome czasem obniża opacity */
-  }
-  .ksfy-input-v14::-webkit-input-placeholder {
-    color: #ffffff !important;
-    opacity: 1 !important;
-  }
-  .ksfy-input-v14::-moz-placeholder {
-    color: #ffffff !important;
-    opacity: 1 !important;
-  }
-  .ksfy-input-v14:-ms-input-placeholder {
-    color: #ffffff !important;
-    opacity: 1 !important;
-  }
-
-  .ksfy-btn-v14 {
-    background: var(--ksfy-green); border: none; border-radius: 50px;
-    padding: 10px 20px; font-family: 'Unbounded', sans-serif;
-    font-size: 9px; font-weight: 800; color: #000;
-    cursor: pointer; transition: 0.3s; text-transform: uppercase;
-  }
-
-  /* DOLNY PASEK */
-  .ksfy-bottom-v14 {
-    width: 100%; display: flex; justify-content: space-between;
-    align-items: center; padding-top: 25px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .ksfy-white-tech {
-    font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #ffffff !important;
-  }
-
-  /* ŚNIEG */
-  .ksfy-snow-v14 {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none; z-index: 1;
-  }
-  .ksfy-flake-v14 {
-    position: absolute; background: #fff; border-radius: 50%; opacity: 0.3;
-    animation: ksfyFallV14 linear infinite;
-  }
-  @keyframes ksfyFallV14 { to { transform: translateY(450px); } }
-
-  /* MOBILE */
-  @media (max-width: 850px) {
-    .ksfy-split-layout { flex-direction: column-reverse; gap: 40px; }
-    .ksfy-capsule-input {
-      flex-direction: column; border-radius: 30px; padding: 20px;
-      width: 100%; max-width: 340px;
-    }
-    .ksfy-input-v14 { width: 100%; text-align: center; }
-    .ksfy-btn-v14 { width: 100%; }
-    .footer-brand-top { margin-bottom: 40px; }
-  }
+/* Stopka */
+footer{background:var(--hero-bg);color:var(--hero-muted);font-size:var(--s-xs)}
+footer .wrap{padding-block:48px 40px;display:grid;gap:28px}
+footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:center}
+footer .brand{color:var(--hero-ink)}
+footer .disc{max-width:72em;line-height:1.7;border-top:1px solid rgba(196,163,95,.25);padding-top:24px}
+footer nav{display:flex;gap:22px;flex-wrap:wrap}
+footer nav a{text-decoration:none}
+footer nav a:hover{color:var(--hero-ink)}
 </style>
+</head>
+<body>
 
-<footer class="ksfy-footer-v14" id="ksfy-footer-trigger">
-  <div id="ksfySnowV14" class="ksfy-snow-v14"></div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#start" aria-label="Quinque — strona główna">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><polygon points="20,3 37,15.5 30.5,35.5 9.5,35.5 3,15.5" fill="none" stroke="#c4a35f" stroke-width="1.4"/><polygon points="20,11 29.5,18 26,29 14,29 10.5,18" fill="none" stroke="#c4a35f" stroke-width=".8" opacity=".6"/><circle cx="20" cy="21" r="2.2" fill="#c4a35f"/></svg>
+      <span><b>QUINQUE</b><small>Dom Kapitałowy</small></span>
+    </a>
+    <nav class="nav" aria-label="Nawigacja główna">
+      <a href="#filary">Filary</a>
+      <a href="#porownanie">Porównanie</a>
+      <a href="#portfel">Model portfela</a>
+      <a href="#podatki">Podatki</a>
+      <a href="#proces">Proces</a>
+      <a class="btn" href="#kontakt">Konsultacja</a>
+    </nav>
+  </div>
+</header>
 
-  <div class="footer-brand-top">
-    <div class="brand-wrapper-v14">
-      <h2 class="logo-footer-main">KURSIFY</h2>
-      <span class="logo-footer-sub">Est 2025</span>
+<main id="start">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Doradztwo majątkowe · od 2011 roku</span>
+        <h1>Pięć filarów <em>trwałego</em> majątku.</h1>
+        <p class="lead">Projektujemy i prowadzimy portfele oparte na aktywach realnych: złocie, srebrze, bitcoinie, nieruchomościach i REIT-ach. Bez produktów prowizyjnych, z pełną dokumentacją każdej decyzji.</p>
+        <div class="ctas">
+          <a class="btn solid" href="#kontakt">Umów konsultację</a>
+          <a class="btn" href="#filary">Poznaj filary</a>
+        </div>
+      </div>
+      <aside class="cert" aria-label="Przykładowe świadectwo alokacji">
+        <canvas id="guilloche" aria-hidden="true"></canvas>
+        <div class="cert-head">
+          <h2>Świadectwo alokacji</h2>
+          <span>SERIA Q · Nº 000127</span>
+        </div>
+        <ul>
+          <li><span class="sym">Au</span><span>Złoto inwestycyjne</span><span class="w">22,0%</span></li>
+          <li><span class="sym">Ag</span><span>Srebro</span><span class="w">8,0%</span></li>
+          <li><span class="sym">₿</span><span>Bitcoin</span><span class="w">7,0%</span></li>
+          <li><span class="sym">Re</span><span>Nieruchomości</span><span class="w">35,0%</span></li>
+          <li><span class="sym">Rt</span><span>REIT-y</span><span class="w">28,0%</span></li>
+        </ul>
+        <div class="cert-foot">
+          <span>Model zrównoważony<br>Przegląd: kwartalny</span>
+          <span class="sig">Komitet Inwestycyjny</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <div class="facts">
+    <div class="wrap">
+      <div class="fact"><b>5</b><span>klas aktywów realnych w jednym planie</span></div>
+      <div class="fact"><b>250 tys.</b><span>zł — majątek, od którego przyjmujemy klientów</span></div>
+      <div class="fact"><b>4×</b><span>w roku przegląd i rebalansowanie portfela</span></div>
+      <div class="fact"><b>0 zł</b><span>prowizji od produktów — tylko jawne honorarium</span></div>
     </div>
   </div>
 
-  <div class="ksfy-footer-container">
-    <div class="ksfy-split-layout">
-      
-      <div class="ksfy-links-stack">
-        <div class="ksfy-label-v14">// ZAKŁADKI</div>
-        <a href="/policies/privacy-policy" class="ksfy-mini-capsule"><span class="ksfy-link-text">Polityka prywatności</span></a>
-        <a href="/policies/refund-policy" class="ksfy-mini-capsule"><span class="ksfy-link-text">Polityka zwrotu kosztów</span></a>
-        <a href="/policies/contact-information" class="ksfy-mini-capsule"><span class="ksfy-link-text">Dane kontaktowe</span></a>
+  <section class="block" id="filary">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Filary portfela</span>
+          <h2>Każde aktywo ma w portfelu inną pracę do wykonania.</h2>
+        </div>
+        <p>Nie szukamy jednego „najlepszego” aktywa. Łączymy pięć, które inaczej reagują na inflację, stopy procentowe i kryzysy, tak by portfel był odporny w różnych scenariuszach.</p>
       </div>
 
-      <div class="ksfy-news-section">
-        <div class="ksfy-label-v14">// NEWSLETTER</div>
-        {%- form 'customer' -%}
-          <input type="hidden" name="contact[tags]" value="newsletter">
-          <div class="ksfy-capsule-input">
-            <input id="NewsletterForm-{{ section.id }}" type="email" name="contact[email]" class="ksfy-input-v14" value="{{ form.email }}" placeholder="Adres e-mail..." required>
-            <button type="submit" class="ksfy-btn-v14" name="commit">ZAPISZ MNIE</button>
+      <article class="pillar" style="--accent-c:var(--c-au)">
+        <div class="sym">Au<small>Złoto · 79</small></div>
+        <div>
+          <h3>Złoto inwestycyjne</h3>
+          <p class="spec">Próba 999,9 · uncja trojańska = 31,1035 g · standard LBMA Good Delivery</p>
+          <p class="desc">Najstarszy magazyn wartości i fundament portfela. Złoto nie wypłaca odsetek, ale od pokoleń chroni siłę nabywczą i zyskuje na znaczeniu wtedy, gdy zawodzą waluty i obligacje.</p>
+        </div>
+        <dl>
+          <dt>Forma</dt><dd>Sztabki 1 oz – 1 kg, monety bulionowe</dd>
+          <dt>Rola</dt><dd>Ochrona kapitału, zabezpieczenie przed inflacją</dd>
+          <dt>Przechowanie</dt><dd>Skarbiec poza systemem bankowym, ubezpieczenie imienne</dd>
+          <dt>Horyzont</dt><dd>5 lat i dłużej</dd>
+        </dl>
+      </article>
+
+      <article class="pillar" style="--accent-c:var(--c-ag)">
+        <div class="sym">Ag<small>Srebro · 47</small></div>
+        <div>
+          <h3>Srebro</h3>
+          <p class="spec">Próba 999 · sztaba Good Delivery ≈ 1000 oz · ponad połowa popytu z przemysłu</p>
+          <p class="desc">Metal monetarny i przemysłowy jednocześnie: fotowoltaika, elektronika, medycyna. Bardziej zmienne niż złoto, dlatego traktujemy je jako uzupełnienie z wyższym potencjałem wzrostu.</p>
+        </div>
+        <dl>
+          <dt>Forma</dt><dd>Monety bulionowe, sztabki 1 kg</dd>
+          <dt>Rola</dt><dd>Dźwignia na cykl surowcowy</dd>
+          <dt>Przechowanie</dt><dd>Skarbiec, wydzielony depozyt</dd>
+          <dt>Horyzont</dt><dd>5 lat i dłużej</dd>
+        </dl>
+      </article>
+
+      <article class="pillar" style="--accent-c:var(--c-btc)">
+        <div class="sym">₿<small>Bitcoin · BTC</small></div>
+        <div>
+          <h3>Bitcoin</h3>
+          <p class="spec">Podaż maksymalna 21 000 000 BTC · 1 BTC = 100 000 000 satoshi · halving co 210 000 bloków</p>
+          <p class="desc">Cyfrowy, ograniczony podażą pieniądz, niezależny od banków centralnych. Bardzo zmienny, więc stanowi niewielką, świadomie dobraną część portfela, którą przechowujemy wyłącznie poza giełdami.</p>
+        </div>
+        <dl>
+          <dt>Forma</dt><dd>Bezpośrednie posiadanie BTC</dd>
+          <dt>Rola</dt><dd>Asymetryczny potencjał wzrostu</dd>
+          <dt>Przechowanie</dt><dd>Portfel sprzętowy multisig 2 z 3, klucze w odrębnych lokalizacjach</dd>
+          <dt>Horyzont</dt><dd>Co najmniej pełny cykl halvingu (≈ 4 lata)</dd>
+        </dl>
+      </article>
+
+      <article class="pillar" style="--accent-c:var(--c-re)">
+        <div class="sym">Re<small>Nieruchomości</small></div>
+        <div>
+          <h3>Nieruchomości</h3>
+          <p class="spec">Księga wieczysta · najem długoterminowy · ocena przez stopę kapitalizacji</p>
+          <p class="desc">Aktywo, które można zobaczyć i wynająć. Wybieramy lokale w lokalizacjach o stabilnym popycie na najem: blisko uczelni, węzłów komunikacyjnych i dużych pracodawców. Każdy zakup poprzedza audyt prawny i techniczny.</p>
+        </div>
+        <dl>
+          <dt>Forma</dt><dd>Mieszkania na wynajem, lokale usługowe</dd>
+          <dt>Rola</dt><dd>Regularny dochód i realna wartość</dd>
+          <dt>Obsługa</dt><dd>Wybór najemcy, umowa najmu okazjonalnego, zarządzanie</dd>
+          <dt>Horyzont</dt><dd>7 lat i dłużej</dd>
+        </dl>
+      </article>
+
+      <article class="pillar" style="--accent-c:var(--c-reit)">
+        <div class="sym">Rt<small>REIT</small></div>
+        <div>
+          <h3>REIT-y</h3>
+          <p class="spec">Real Estate Investment Trust · w USA obowiązek wypłaty ≥ 90% dochodu podlegającego opodatkowaniu</p>
+          <p class="desc">Spółki giełdowe posiadające centra logistyczne, biurowce, szpitale czy centra danych. Dają dostęp do nieruchomości komercyjnych na całym świecie, z płynnością akcji i regularną dywidendą.</p>
+        </div>
+        <dl>
+          <dt>Forma</dt><dd>Wyselekcjonowane REIT-y i ETF-y na rynki USA i Europy</dd>
+          <dt>Rola</dt><dd>Dochód dywidendowy, globalna dywersyfikacja</dd>
+          <dt>Rachunek</dt><dd>Rachunek maklerski na nazwisko klienta</dd>
+          <dt>Horyzont</dt><dd>5 lat i dłużej</dd>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="porownanie" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Porównanie</span>
+          <h2>Pięć aktywów, jedna tabela.</h2>
+        </div>
+        <p>Skala od jednej do pięciu kropek. Płynność oznacza, jak szybko można zamienić aktywo na gotówkę bez utraty wartości; zmienność to typowa skala wahań ceny.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">Aktywo</th><th scope="col">Rola w portfelu</th><th scope="col">Płynność</th><th scope="col">Zmienność</th><th scope="col">Dochód bieżący</th><th scope="col">Podatek od zysku (PL)</th></tr>
+          </thead>
+          <tbody>
+            <tr style="--accent-c:var(--c-au)"><th scope="row"><i></i>Złoto</th><td>Ochrona siły nabywczej</td><td data-dots="4"></td><td data-dots="2"></td><td>Brak</td><td>0% po 6 mies.*</td></tr>
+            <tr style="--accent-c:var(--c-ag)"><th scope="row"><i></i>Srebro</th><td>Metal monetarny i przemysłowy</td><td data-dots="3"></td><td data-dots="4"></td><td>Brak</td><td>0% po 6 mies.*</td></tr>
+            <tr style="--accent-c:var(--c-btc)"><th scope="row"><i></i>Bitcoin</th><td>Asymetryczny wzrost</td><td data-dots="5"></td><td data-dots="5"></td><td>Brak</td><td>19% (PIT-38)</td></tr>
+            <tr style="--accent-c:var(--c-re)"><th scope="row"><i></i>Nieruchomości</th><td>Dochód z najmu, wartość realna</td><td data-dots="1"></td><td data-dots="1"></td><td>Czynsz miesięczny</td><td>0% po 5 latach**</td></tr>
+            <tr style="--accent-c:var(--c-reit)"><th scope="row"><i></i>REIT-y</th><td>Dywidenda, dywersyfikacja globalna</td><td data-dots="5"></td><td data-dots="3"></td><td>Dywidenda kwartalna</td><td>19%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">* Licząc od końca miesiąca, w którym nastąpił zakup. ** Licząc od końca roku kalendarzowego nabycia; dochód z najmu opodatkowany ryczałtem.</p>
+    </div>
+  </section>
+
+  <section class="block portfolio" id="portfel">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Model portfela</span>
+          <h2>Sprawdź, jak mógłby wyglądać Twój podział.</h2>
+        </div>
+        <p>Trzy modele wyjściowe, od których zaczynamy rozmowę. Ostateczną alokację dopasowujemy do celów, horyzontu i majątku, który już posiadasz.</p>
+      </div>
+      <div class="pf-grid">
+        <div>
+          <div class="tabs" role="tablist" aria-label="Profil inwestora">
+            <button type="button" role="tab" id="tab-kons" aria-selected="false" data-p="kons">Konserwatywny</button>
+            <button type="button" role="tab" id="tab-zrow" aria-selected="true" data-p="zrow">Zrównoważony</button>
+            <button type="button" role="tab" id="tab-dyn" aria-selected="false" data-p="dyn">Dynamiczny</button>
           </div>
-          {%- if form.posted_successfully? -%}
-            <p style="color: var(--ksfy-green); font-size: 11px; margin-top: 10px; font-family: 'Unbounded'; text-align: center;">Sukces! Zostałeś zapisany.</p>
-          {%- endif -%}
-        {%- endform -%}
+          <p class="pf-desc" id="pf-desc"></p>
+          <div class="amount">
+            <label for="kwota">Kwota do zainwestowania</label>
+            <div class="amount-field">
+              <input id="kwota" inputmode="numeric" autocomplete="off" value="1 500 000">
+              <span>PLN</span>
+            </div>
+          </div>
+          <p class="note" id="pf-note"></p>
+        </div>
+        <div>
+          <div class="bar" id="bar" aria-hidden="true"></div>
+          <ul class="split" id="split" aria-live="polite"></ul>
+          <p class="note">Modele mają charakter poglądowy i nie stanowią rekomendacji inwestycyjnej.</p>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="ksfy-bottom-v14">
-      <div class="ksfy-white-tech">© 2026 KURSIFY • CORE_V.20</div>
-      <div class="ksfy-white-tech">EST. 2025 // STATUS: <span style="color:var(--ksfy-green); font-weight:bold; text-shadow: 0 0 10px var(--ksfy-green);">ONLINE</span></div>
+  <section class="block" id="podatki">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Podatki w Polsce</span>
+          <h2>Podatek to część stopy zwrotu.</h2>
+        </div>
+        <p>Planujemy moment zakupu i sprzedaży tak, by korzystać z przepisów, a nie z nimi walczyć. Poniżej najważniejsze zasady w skrócie; przy wdrożeniu współpracujemy z doradcą podatkowym klienta.</p>
+      </div>
+      <div class="tax">
+        <article>
+          <h3>Złoto <span>AU</span></h3>
+          <div class="rate">0% VAT</div>
+          <p>Złoto inwestycyjne jest zwolnione z VAT. Sprzedaż po upływie pół roku, licząc od końca miesiąca zakupu, nie rodzi podatku dochodowego.</p>
+        </article>
+        <article>
+          <h3>Srebro <span>AG</span></h3>
+          <div class="rate">23% VAT</div>
+          <p>Srebro jest objęte VAT; część monet z rynku wtórnego sprzedawana jest w procedurze VAT-marża. Po pół roku od końca miesiąca zakupu sprzedaż jest wolna od PIT.</p>
+        </article>
+        <article>
+          <h3>Bitcoin <span>BTC</span></h3>
+          <div class="rate">19%</div>
+          <p>Dochód ze zbycia kryptowalut rozliczasz w PIT-38. Nadwyżkę kosztów nad przychodem przenosisz na kolejny rok. Wymiana BTC na inną kryptowalutę nie rodzi podatku.</p>
+        </article>
+        <article>
+          <h3>Nieruchomości <span>RE</span></h3>
+          <div class="rate">8,5% / 12,5%</div>
+          <p>Ryczałt od przychodów z najmu: 8,5% do 100 000 zł rocznie, 12,5% od nadwyżki. Sprzedaż po 5 latach od końca roku nabycia jest wolna od PIT.</p>
+        </article>
+        <article>
+          <h3>REIT-y <span>RT</span></h3>
+          <div class="rate">19%</div>
+          <p>Dywidendy z REIT-ów amerykańskich: 15% pobrane u źródła po złożeniu formularza W-8BEN, różnicę do 19% dopłacasz w zeznaniu rocznym.</p>
+        </article>
+        <article>
+          <h3>Zasada ogólna <span>PL</span></h3>
+          <div class="rate">Plan</div>
+          <p>Przepisy się zmieniają. Każdą transakcję sprawdzamy pod kątem aktualnego stanu prawnego. Ta sekcja nie stanowi porady podatkowej.</p>
+        </article>
+      </div>
     </div>
+  </section>
+
+  <section class="block process" id="proces">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Proces współpracy</span>
+          <h2>Od pierwszej rozmowy do pierwszego przeglądu.</h2>
+        </div>
+        <p>Każdy etap kończy się dokumentem, który zostaje u klienta: notatką, raportem albo protokołem zakupu.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>Rozmowa wstępna</h3><p>Poznajemy cele, horyzont i obecny majątek. Bez zobowiązań i bez opłat.</p><span class="t">90 minut</span></li>
+        <li><h3>Diagnoza majątku</h3><p>Inwentaryzacja aktywów, kosztów i ryzyk. Raport z rekomendowanym kierunkiem.</p><span class="t">2–3 tygodnie</span></li>
+        <li><h3>Projekt alokacji</h3><p>Docelowy podział na pięć filarów, harmonogram zakupów i plan podatkowy.</p><span class="t">1 tydzień</span></li>
+        <li><h3>Wdrożenie</h3><p>Zakup metali do skarbca, konfiguracja multisig, wybór nieruchomości, rachunek maklerski.</p><span class="t">1–6 miesięcy</span></li>
+        <li><h3>Przegląd</h3><p>Kwartalny raport, rebalansowanie i aktualizacja planu po zmianach w życiu klienta.</p><span class="t">Co kwartał</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="principles">
+        <div><span class="rule"></span><h3>Niezależność</h3><p>Nie sprzedajemy własnych produktów i nie przyjmujemy prowizji od dealerów, deweloperów ani giełd. Płacisz jawne honorarium, ustalone z góry.</p></div>
+        <div><span class="rule"></span><h3>Własność bezpośrednia</h3><p>Metale, bitcoin, nieruchomości i rachunki maklerskie są zawsze na Twoje nazwisko. My planujemy i nadzorujemy, ale nie przechowujemy Twojego majątku.</p></div>
+        <div><span class="rule"></span><h3>Dyskrecja</h3><p>Pracujemy z ograniczoną liczbą rodzin i przedsiębiorców. Konsultacje odbywają się wyłącznie po wcześniejszym umówieniu.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block contact" id="kontakt">
+    <div class="wrap contact-grid">
+      <div>
+        <span class="eyebrow">Kontakt</span>
+        <h2>Umów poufną konsultację.</h2>
+        <p style="margin-top:18px;color:var(--muted);max-width:32em">Pierwsza rozmowa jest bezpłatna. Odpowiadamy w ciągu jednego dnia roboczego i proponujemy termin spotkania w biurze lub online.</p>
+        <dl class="info">
+          <div><dt>Biura</dt><dd>Warszawa · Kraków · Gdańsk</dd></div>
+          <div><dt>Godziny</dt><dd>Poniedziałek – piątek, 9:00–18:00</dd></div>
+          <div><dt>Spotkania</dt><dd>Wyłącznie po wcześniejszym umówieniu</dd></div>
+        </dl>
+      </div>
+      <form id="form" novalidate>
+        <div class="field"><label for="f-name">Imię i nazwisko</label><input id="f-name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="f-mail">E-mail</label><input id="f-mail" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="f-tel">Telefon</label><input id="f-tel" name="tel" type="tel" autocomplete="tel"></div>
+        <div class="field">
+          <label for="f-amount">Planowana kwota</label>
+          <select id="f-amount" name="amount">
+            <option>250 tys. – 1 mln zł</option>
+            <option>1 – 5 mln zł</option>
+            <option>5 – 20 mln zł</option>
+            <option>Powyżej 20 mln zł</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="f-msg">Które filary Cię interesują?</label>
+          <textarea id="f-msg" name="message" placeholder="Np. chcę zabezpieczyć część oszczędności w złocie i zacząć budować dochód z najmu."></textarea>
+        </div>
+        <label class="consent" for="f-consent"><input id="f-consent" type="checkbox" required> <span>Wyrażam zgodę na kontakt w sprawie konsultacji. Dane przetwarzamy wyłącznie w tym celu, zgodnie z RODO.</span></label>
+        <div class="form-foot">
+          <p class="status" id="status" role="status"></p>
+          <button class="btn" type="submit">Wyślij zgłoszenie</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <a class="brand" href="#start">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><polygon points="20,3 37,15.5 30.5,35.5 9.5,35.5 3,15.5" fill="none" stroke="#c4a35f" stroke-width="1.4"/><circle cx="20" cy="21" r="2.2" fill="#c4a35f"/></svg>
+        <span><b>QUINQUE</b><small>Dom Kapitałowy</small></span>
+      </a>
+      <nav aria-label="Stopka">
+        <a href="#filary">Filary</a><a href="#portfel">Model portfela</a><a href="#podatki">Podatki</a><a href="#kontakt">Kontakt</a>
+      </nav>
+    </div>
+    <p class="disc">Treści na stronie mają charakter wyłącznie informacyjny i edukacyjny. Nie stanowią rekomendacji inwestycyjnej, porady prawnej ani podatkowej, ani oferty w rozumieniu Kodeksu cywilnego. Inwestowanie w metale szlachetne, kryptowaluty, nieruchomości i REIT-y wiąże się z ryzykiem utraty części lub całości kapitału. Historyczne wyniki nie gwarantują przyszłych rezultatów.</p>
+    <div class="row"><span>© <span id="year">2026</span> Quinque Dom Kapitałowy</span><span class="mono">Au · Ag · ₿ · Re · Rt</span></div>
   </div>
 </footer>
 
 <script>
-  (function() {
-    const observerOptions = { threshold: 0.1 };
-    const footerObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-        }
-      });
-    }, observerOptions);
+(function(){
+  // Kropki w tabeli
+  document.querySelectorAll('[data-dots]').forEach(function(td){
+    var n = +td.dataset.dots, html = '<span class="dots" role="img" aria-label="' + n + ' na 5">';
+    for (var i = 1; i <= 5; i++) html += '<span' + (i <= n ? ' class="on"' : '') + '></span>';
+    td.innerHTML = html + '</span>';
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-    const target = document.querySelector('#ksfy-footer-trigger');
-    if (target) footerObserver.observe(target);
+  // Model portfela
+  var assets = [
+    {k:'au', name:'Złoto', sub:'Sztabki i monety w skarbcu'},
+    {k:'ag', name:'Srebro', sub:'Monety bulionowe, sztabki 1 kg'},
+    {k:'btc', name:'Bitcoin', sub:'Multisig 2 z 3'},
+    {k:'re', name:'Nieruchomości', sub:'Lokale na wynajem'},
+    {k:'reit', name:'REIT-y', sub:'Rynki USA i Europy'}
+  ];
+  var models = {
+    kons:{w:[30,5,2,40,23], d:'Priorytetem jest zachowanie kapitału. Przewaga złota i nieruchomości, minimalna ekspozycja na bitcoin. Dla osób, które chcą przede wszystkim chronić majątek przed inflacją.'},
+    zrow:{w:[22,8,7,35,28], d:'Równowaga między ochroną a wzrostem. Metale stabilizują portfel, nieruchomości i REIT-y dają dochód, a bitcoin dodaje potencjał wzrostu przy kontrolowanym ryzyku.'},
+    dyn:{w:[15,10,15,30,30], d:'Dla inwestorów z długim horyzontem i wysoką tolerancją wahań. Większy udział srebra i bitcoina, przy zachowaniu stabilnej bazy w nieruchomościach.'}
+  };
+  var fmt = new Intl.NumberFormat('pl-PL', {maximumFractionDigits:0});
+  var current = 'zrow';
+  var input = document.getElementById('kwota');
+  var bar = document.getElementById('bar');
+  var split = document.getElementById('split');
 
-    const snowV14 = document.getElementById('ksfySnowV14');
-    for (let i = 0; i < 30; i++) {
-      const flake = document.createElement('div');
-      flake.className = 'ksfy-flake-v14';
-      const size = Math.random() * 2 + 1 + 'px';
-      flake.style.width = size; flake.style.height = size;
-      flake.style.left = Math.random() * 100 + '%';
-      flake.style.animationDuration = Math.random() * 3 + 4 + 's';
-      flake.style.animationDelay = Math.random() * 5 + 's';
-      flake.style.top = '-10px';
-      snowV14.appendChild(flake);
+  bar.innerHTML = assets.map(function(a){ return '<div style="--accent-c:var(--c-' + a.k + ')"><span></span></div>'; }).join('');
+
+  function amount(){ return +String(input.value).replace(/[^\d]/g, '') || 0; }
+
+  function render(){
+    var m = models[current], total = amount();
+    document.getElementById('pf-desc').textContent = m.d;
+    Array.prototype.forEach.call(bar.children, function(el, i){
+      el.style.flexGrow = m.w[i];
+      el.firstChild.textContent = m.w[i] >= 8 ? m.w[i] + '%' : '';
+    });
+    split.innerHTML = assets.map(function(a, i){
+      return '<li style="--accent-c:var(--c-' + a.k + ')"><i></i><span>' + a.name + '<small>' + a.sub + '</small></span><span class="pct">' + m.w[i] + '%</span><span class="val">' + fmt.format(Math.round(total * m.w[i] / 100)) + ' zł</span></li>';
+    }).join('');
+    var re = total * m.w[3] / 100;
+    document.getElementById('pf-note').textContent = total && re < 400000
+      ? 'Przy tej kwocie część nieruchomościową (' + fmt.format(Math.round(re)) + ' zł) realizujemy przez udziały w projektach najmu lub dodatkowe REIT-y, bo nie wystarcza na zakup lokalu.'
+      : 'Część nieruchomościowa pozwala na zakup lokalu na wynajem z udziałem własnym.';
+  }
+
+  document.querySelectorAll('.tabs button').forEach(function(b){
+    b.addEventListener('click', function(){
+      current = b.dataset.p;
+      document.querySelectorAll('.tabs button').forEach(function(x){ x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
+      render();
+    });
+  });
+  input.addEventListener('input', function(){
+    var v = amount();
+    input.value = v ? fmt.format(v) : '';
+    render();
+  });
+  render();
+
+  // Formularz (wersja statyczna, bez serwera)
+  document.getElementById('form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var f = e.target, s = document.getElementById('status');
+    var name = f.querySelector('#f-name'), mail = f.querySelector('#f-mail'), ok = f.querySelector('#f-consent');
+    if (!name.value.trim()) { s.textContent = 'Podaj imię i nazwisko.'; name.focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail.value)) { s.textContent = 'Podaj poprawny adres e-mail, np. jan@firma.pl.'; mail.focus(); return; }
+    if (!ok.checked) { s.textContent = 'Zaznacz zgodę na kontakt, abyśmy mogli odpowiedzieć.'; ok.focus(); return; }
+    s.textContent = 'Dziękujemy, ' + name.value.trim().split(' ')[0] + '. Zgłoszenie jest gotowe; w wersji demonstracyjnej strony formularz nie jest jeszcze połączony ze skrzynką.';
+  });
+
+  // Gilosz na świadectwie
+  var c = document.getElementById('guilloche');
+  var ctx = c.getContext('2d');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W, H, t0 = performance.now();
+  function size(){
+    var r = c.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = r.width; H = r.height;
+    c.width = Math.round(W * dpr); c.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function draw(now){
+    var ph = reduce ? 0 : (now - t0) / 18000;
+    ctx.clearRect(0, 0, W, H);
+    var cx = W * .78, cy = H * .62, base = Math.min(W, H) * .5;
+    ctx.lineWidth = .6;
+    for (var L = 0; L < 3; L++){
+      var R = base * (1 - L * .2), r = R / (7 + L * 2), d = r * (2.4 - L * .4);
+      ctx.strokeStyle = 'rgba(196,163,95,' + (.16 - L * .035) + ')';
+      ctx.beginPath();
+      for (var i = 0; i <= 1400; i++){
+        var t = i / 1400 * Math.PI * 2 * (L === 1 ? 2 : 1);
+        var k = (R - r) / r, a = t + ph * (L % 2 ? -1 : 1);
+        var x = cx + (R - r) * Math.cos(a) + d * Math.cos(k * a);
+        var y = cy + (R - r) * Math.sin(a) - d * Math.sin(k * a);
+        i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+      }
+      ctx.stroke();
     }
-  })();
+    ctx.strokeStyle = 'rgba(196,163,95,.09)';
+    for (var j = 0; j < 9; j++){
+      ctx.beginPath();
+      for (var xx = 0; xx <= W; xx += 4){
+        var yy = 14 + j * 5 + Math.sin(xx / 22 + j * .7 + ph * 6) * 4;
+        xx ? ctx.lineTo(xx, yy) : ctx.moveTo(xx, yy);
+      }
+      ctx.stroke();
+    }
+    if (!reduce) requestAnimationFrame(draw);
+  }
+  size();
+  window.addEventListener('resize', function(){ size(); if (reduce) draw(0); });
+  reduce ? draw(0) : requestAnimationFrame(draw);
+})();
 </script>
+</body>
+</html>
